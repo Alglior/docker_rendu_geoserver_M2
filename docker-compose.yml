@@ -13,7 +13,7 @@ services:
       - ./geoserver/opt:/opt/geoserver_data
 
   web:
-    container_name: geonum_web
+    container_name: docker_rendu_geoserver_web
     image: caddy:latest
     ports:
       - "80:80"
