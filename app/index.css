@@ -33,6 +33,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 20px;
     min-height: calc(100vh - 180px);
     padding: 20px;
 }
@@ -93,11 +94,25 @@ hr {
 }
 
 /* goToMapBtn see map center horizontale / vertical */
-#goToMapBtn {
-    position: relative;
+#openLayerBtn {
+    position: absolute;
     top: 65%;
-    left: 50%;
-    right: 50%;
+    left: 60%;
+    transform: translateX(-50%);
+    width: 14%;
+    height: 7%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #967149;
+    border: none;
+}
+
+#leafletBtn {
+    position: absolute;
+    top: 65%;
+    margin-right: 7%;
+    transform: translateX(-50%);
     width: 14%;
     height: 7%;
     font-weight: bold;
