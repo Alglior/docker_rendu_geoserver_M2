@@ -16,7 +16,7 @@ services:
     container_name: docker_rendu_geoserver_web
     image: caddy:latest
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./app/dist/:/srv
