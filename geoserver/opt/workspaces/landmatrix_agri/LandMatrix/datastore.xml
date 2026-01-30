@@ -7,15 +7,16 @@
     <id>WorkspaceInfoImpl-1098d4ef:19c0e2c7138:-7ffc</id>
   </workspace>
   <connectionParameters>
-    <entry key="fetch size">1000</entry>
-    <entry key="Expose primary keys">false</entry>
     <entry key="Batch insert size">1</entry>
     <entry key="database">file:data/land_matrix_agri.gpkg</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="Expose primary keys">false</entry>
     <entry key="read_only">false</entry>
     <entry key="dbtype">geopkg</entry>
     <entry key="namespace">land_matrix_agri</entry>
   </connectionParameters>
   <__default>false</__default>
   <dateCreated>2026-01-30 09:15:25.752 UTC</dateCreated>
+  <dateModified>2026-01-30 09:30:44.718 UTC</dateModified>
   <disableOnConnFailure>false</disableOnConnFailure>
 </dataStore>
