@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-:root {--main-bg-color : #fc941d; }
+:root {--main-bg-color : #2e7d32; }
 
 html, body {
     height: 100%;
@@ -128,7 +128,7 @@ html, body {
 }
 
 .panel-toggle-btn:hover {
-    background-color: #e8841a;
+    background-color: #256628;
 }
 
 .left-group,
@@ -250,7 +250,7 @@ html, body {
 
 .btn-tool:hover {
     border-color: var(--main-bg-color);
-    background: #fff5eb;
+    background: #eaf7ee;
     transform: translateX(3px);
 }
 

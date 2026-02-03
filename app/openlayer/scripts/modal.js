@@ -48,6 +48,7 @@ class LayerSwitcherModal {
         this.layerModal = document.getElementById(this.modalId);
         this.closeModalSpan = this.layerModal?.querySelector('.close-modal');
         this.layerOptions = this.layerModal?.querySelectorAll('.layer-option');
+        this.overlayOptions = this.layerModal?.querySelectorAll('.overlay-option input');
         
         if (!this.layerSwitcherBtn || !this.layerModal) {
             console.error('Éléments DOM manquants pour le LayerSwitcherModal');
@@ -68,6 +69,7 @@ class LayerSwitcherModal {
         });
 
         this.setupLayerSwitching();
+        this.setupOverlaySwitching();
     }
 
     setupLayerSwitching() {
@@ -84,6 +86,21 @@ class LayerSwitcherModal {
             });
         });
     }
+
+    setupOverlaySwitching() {
+        if (!this.overlayOptions) return;
+
+        this.overlayOptions.forEach(option => {
+            const overlayKey = option.getAttribute('data-overlay');
+            if (!overlayKey) return;
+
+            this.toggleOverlay(overlayKey, option.checked);
+
+            option.addEventListener('change', () => {
+                this.toggleOverlay(overlayKey, option.checked);
+            });
+        });
+    }
     
     /**
      * @param {string} layerType
@@ -97,6 +114,23 @@ class LayerSwitcherModal {
             baseLayer.setSource(newSource);
         } else {
             console.warn(`Couche "${layerType}" non trouvée dans la configuration`);
+        }
+    }
+
+    /**
+     * @param {string} overlayKey
+     * @param {boolean} visible
+     */
+    toggleOverlay(overlayKey, visible) {
+        const layer = this.map
+            .getLayers()
+            .getArray()
+            .find(item => item.get('id') === overlayKey);
+
+        if (layer) {
+            layer.setVisible(visible);
+        } else {
+            console.warn(`Couche de contexte "${overlayKey}" introuvable`);
         }
     }
     

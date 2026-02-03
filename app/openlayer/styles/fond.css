@@ -21,7 +21,7 @@
 }
 
 .layer-switcher-btn:hover {
-    border-color: #fc941d;
+    border-color: #2e7d32;
 }
 
 .layer-switcher-btn img {
@@ -85,6 +85,29 @@
     gap: 10px;
 }
 
+.overlay-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.overlay-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    background: #fafafa;
+}
+
+.overlay-option:hover {
+    border-color: #2e7d32;
+    background: #eaf7ee;
+}
+
 .layer-option {
     display: flex;
     flex-direction: column;
@@ -96,8 +119,8 @@
 }
 
 .layer-option:hover, .layer-option.active {
-    border-color: #fc941d;
-    background-color: #f9f9f9;
+    border-color: #2e7d32;
+    background-color: #f1f8f4;
 }
 
 .layer-option img {

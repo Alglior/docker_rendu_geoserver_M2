@@ -15,13 +15,8 @@
 
 <body>
   <div class="top-bar">
-    <div id="top-left" class="top-content">
-      <h2>Spatial querying for </h2>
-      <!-- when clicking on the logo redirect to the home page -->
-    <img class="main-logo" src="../images/logo_lm_dark_custom.png" alt="LM logo" onclick="window.location.href='../index.html'">
-    </div>
     <div id="top-right" class="top-content">
-        <h2> a tool by </h2>
+
         <img class="partner-logo" src="../images/univlyon2_logo201806-N2.png" alt="logo1">
         <img class="partner-logo" src="../images/Univ-Lyon3_WEB.png" alt="logo2">
         <img class="partner-logo" src="../images/logo_ujm_noir.png" alt="logo3">
@@ -49,7 +44,7 @@
     <div id="layer-modal" class="layer-modal">
       <div class="layer-modal-content">
         <span class="close-modal">&times;</span>
-        <h3>Base Maps</h3>
+        <h3>Couche de base</h3>
         <div class="layer-options">
           <div class="layer-option" data-layer="osm">
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Openstreetmap_logo.svg" alt="OSM">
@@ -63,6 +58,13 @@
             <img src="../images/terrain.png" alt="Terrain">
             <span>Terrain</span>
           </div>
+        </div>
+        <h3>Couches de contexte</h3>
+        <div class="overlay-options">
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="pays" checked>
+            <span>Pays</span>
+          </label>
         </div>
       </div>
     </div>

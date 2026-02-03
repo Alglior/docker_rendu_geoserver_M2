@@ -4,6 +4,7 @@ import { Style, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
 import Draw from 'ol/interaction/Draw.js';
 import { fromLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM.js';
+import TileWMS from 'ol/source/TileWMS.js';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import TileLayer from 'ol/layer/Tile';
@@ -44,6 +45,20 @@ const vectorLayer = new VectorLayer({
   }),
 });
 
+const paysLayer = new TileLayer({
+  source: new TileWMS({
+    url: 'http://localhost:8083/geoserver/landmatrix_agri/wms',
+    params: {
+      LAYERS: 'landmatrix_agri:country',
+      TILED: true,
+      TRANSPARENT: true,
+      FORMAT: 'image/png',
+    },
+    serverType: 'geoserver',
+  }),
+});
+paysLayer.set('id', 'pays');
+
 // Create the map
 const map = new Map({
   controls: controls,
@@ -52,11 +67,12 @@ const map = new Map({
     new TileLayer({
       source: new OSM(),
     }),
+    paysLayer,
     vectorLayer,
   ],
   view: new View({
-    center: fromLonLat([2.35, 48.85]),
-    zoom: 10,
+    center: fromLonLat([0, 0]),
+    zoom: 2,
   }),
 });
 

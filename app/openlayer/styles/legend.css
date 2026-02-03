@@ -23,7 +23,7 @@ body:has(.side-panel.collapsed) .map-legend {
   justify-content: space-between;
   align-items: center;
   padding: 12px 15px;
-  background-color: #fc941d;
+  background-color: #2e7d32;
   color: white;
   border-radius: 8px 8px 0 0;
 }
@@ -105,7 +105,7 @@ body:has(.side-panel.collapsed) .map-legend {
 
 .legend-orange {
   background-color: rgba(252, 148, 29, 0.3);
-  border: 2px solid #fc941d;
+  border: 2px solid #2e7d32;
 }
 
 .legend-teal {
@@ -114,17 +114,17 @@ body:has(.side-panel.collapsed) .map-legend {
 }
 
 .legend-point {
-  background-color: #fc941d;
+  background-color: #2e7d32;
   border-radius: 50%;
   width: 12px;
   height: 12px;
   border: 2px solid white;
-  box-shadow: 0 0 0 2px #fc941d;
+  box-shadow: 0 0 0 2px #2e7d32;
 }
 
 .legend-buffer {
   background-color: rgba(252, 148, 29, 0.2);
-  border: 2px dashed #fc941d;
+  border: 2px dashed #2e7d32;
 }
 
 .legend-area {
@@ -162,7 +162,7 @@ body:has(.side-panel.collapsed) .legend-btn {
 }
 
 .legend-btn.active {
-  background-color: #fc941d;
+  background-color: #2e7d32;
   color: white;
 }
 
