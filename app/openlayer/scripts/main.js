@@ -5,6 +5,7 @@ import Draw from 'ol/interaction/Draw.js';
 import { fromLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM.js';
 import TileWMS from 'ol/source/TileWMS.js';
+import GeoJSON from 'ol/format/GeoJSON.js';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import TileLayer from 'ol/layer/Tile';
@@ -14,7 +15,7 @@ import { initializePopup } from './popup.js';
 
 // Vector source for drawing
 const source = new VectorSource();
-
+var local_ip = 'http://localhost:8083/';
 
 
 // Scale control
@@ -47,7 +48,7 @@ const vectorLayer = new VectorLayer({
 
 const paysLayer = new TileLayer({
   source: new TileWMS({
-    url: 'http://localhost:8083/geoserver/landmatrix_agri/wms',
+    url: local_ip + 'geoserver/landmatrix_agri/wms',
     params: {
       LAYERS: 'landmatrix_agri:country',
       TILED: true,
@@ -59,6 +60,23 @@ const paysLayer = new TileLayer({
 });
 paysLayer.set('id', 'pays');
 
+const dealsLayer = new VectorLayer({
+  source: new VectorSource({
+    url: local_ip + 'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=50&outputFormat=application/json',
+    format: new GeoJSON(),
+  }),
+  style: new Style({
+    image: new CircleStyle({
+      radius: 6,
+      fill: new Fill({ color: '#2e7d32' }),
+      stroke: new Stroke({ color: '#ffffff', width: 1.5 }),
+    }),
+    stroke: new Stroke({ color: '#2e7d32', width: 2 }),
+    fill: new Fill({ color: 'rgba(46, 125, 50, 0.25)' }),
+  }),
+});
+dealsLayer.set('id', 'deals');
+
 // Create the map
 const map = new Map({
   controls: controls,
@@ -68,6 +86,7 @@ const map = new Map({
       source: new OSM(),
     }),
     paysLayer,
+    dealsLayer,
     vectorLayer,
   ],
   view: new View({

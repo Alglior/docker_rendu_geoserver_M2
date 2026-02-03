@@ -101,6 +101,8 @@
     border-radius: 6px;
     border: 1px solid #e0e0e0;
     background: #fafafa;
+    outline: none;
+    user-select: none;
 }
 
 .overlay-option:hover {
