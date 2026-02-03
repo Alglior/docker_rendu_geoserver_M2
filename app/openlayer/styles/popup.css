@@ -50,7 +50,7 @@
     top: 8px;
     right: 8px;
     font-size: 20px;
-    color: #666;
+    color: var(--text-color);
     font-weight: bold;
     cursor: pointer;
 }
@@ -60,7 +60,7 @@
 }
 
 .ol-popup-closer:hover {
-    color: #000;
+    color: var(--text-color);
 }
 
 #popup-content {
@@ -73,7 +73,7 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 15px;
-    color: #000;
+    color: var(--text-color);
 }
 
 .popup-field {
@@ -83,13 +83,13 @@
 .popup-field-label {
     font-weight: bold;
     font-size: 14px;
-    color: #000;
+    color: var(--text-color);
     margin-bottom: 2px;
 }
 
 .popup-field-value {
     font-size: 14px;
-    color: #333;
+    color: var(--text-color);
     display: flex;
     align-items: center;
     gap: 5px;
@@ -98,21 +98,4 @@
 .popup-field-value svg {
     width: 16px;
     height: 16px;
-}
-
-.popup-more-btn {
-    background-color: #2e7d32;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.popup-more-btn:hover {
-    background-color: var(--secondary-color);
 }
