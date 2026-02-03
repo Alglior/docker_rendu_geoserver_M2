@@ -45,7 +45,7 @@ const vectorLayer = new VectorLayer({
     }),
   }),
 });
-
+// WMS pour la couche des pays qui se trouve sur Geoserver local
 const paysLayer = new TileLayer({
   source: new TileWMS({
     url: local_ip + 'geoserver/landmatrix_agri/wms',
@@ -60,6 +60,7 @@ const paysLayer = new TileLayer({
 });
 paysLayer.set('id', 'pays');
 
+// Couche pour la couche des deals agricole en WFS
 const dealsLayer = new VectorLayer({
   source: new VectorSource({
     url: local_ip + 'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=50&outputFormat=application/json',
