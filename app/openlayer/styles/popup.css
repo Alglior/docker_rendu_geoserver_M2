@@ -16,8 +16,8 @@
     border: 1px solid #cccccc;
     bottom: 12px;
     left: -50px;
-    min-width: 280px;
-    max-width: 350px;
+    min-width: 400px;
+    max-width: 550px;
 }
 
 .ol-popup:after, .ol-popup:before {
@@ -65,26 +65,41 @@
 
 #popup-content {
     padding: 15px;
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
 .popup-deal-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 15px;
-    color: var(--text-color);
+    color: white;
+    background-color: var(--primary-color);
+    padding: 12px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 10px 10px 0 0;
+}
+
+.popup-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .popup-field {
-    margin-bottom: 12px;
+    padding: 8px;
+    background-color: #fafafa;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
 }
 
 .popup-field-label {
-    font-weight: bold;
-    font-size: 14px;
-    color: var(--text-color);
-    margin-bottom: 2px;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .popup-field-value {
@@ -92,10 +107,17 @@
     color: var(--text-color);
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    font-weight: 500;
 }
 
-.popup-field-value svg {
-    width: 16px;
-    height: 16px;
+.popup-section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--secondary-color);
+    padding: 8px 10px;
+    margin: 12px -15px 8px -15px;
+    border-radius: 4px;
+}
 }

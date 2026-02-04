@@ -1,24 +1,26 @@
 import Overlay from 'ol/Overlay';
 
-// Cache for popup template
+// Cache pour le modèle HTML du popup
 let popupTemplate = null;
 
-// Mapping for accuracy display
+// Étiquettes pour l'affichage de la précision
 const ACCURACY_LABELS = {
-  'APPROXIMATE_LOCATION': 'Approximate location',
-  'EXACT_LOCATION': 'Exact location',
-  'COORDINATES': 'Coordinates',
-  'COUNTRY': 'Country',
-  'ADMINISTRATIVE_REGION': 'Administrative region'
+  'APPROXIMATE_LOCATION': 'Localisation approximative',
+  'EXACT_LOCATION': 'Localisation exacte',
+  'COORDINATES': 'Coordonnées',
+  'COUNTRY': 'Pays',
+  'ADMINISTRATIVE_REGION': 'Région administrative'
 };
 
 /**
- * Format intention data (array or string)
+ * Formate les données d'intention (tableau ou chaîne)
+ * @param {*} intention - Donnée à formater
+ * @returns {string} Intention formatée
  */
 function formatIntention(intention) {
   if (!intention) return 'N/A';
   
-  // Parse if it's a stringified array
+  // Parse si c'est un tableau stringifié
   let data = intention;
   if (typeof intention === 'string' && intention.startsWith('[')) {
     try {
@@ -28,7 +30,7 @@ function formatIntention(intention) {
     }
   }
   
-  // Format array items
+  // Formate les éléments du tableau
   if (Array.isArray(data)) {
     return data
       .map(item => item.replace(/_/g, ' ').toLowerCase())
@@ -40,18 +42,21 @@ function formatIntention(intention) {
 }
 
 /**
- * Format deal size with proper units
+ * Formate la taille des deals avec les unités appropriées
+ * @param {number} dealSize - Taille en hectares
+ * @returns {string} Taille formatée
  */
 function formatDealSize(dealSize) {
   if (!dealSize || dealSize === 'N/A') return 'N/A';
-  if (dealSize === 0 || dealSize === '0.0') return 'Not specified';
+  if (dealSize === 0 || dealSize === '0.0') return 'Non spécifié';
   
   const size = typeof dealSize === 'number' ? dealSize : parseFloat(dealSize);
   return !isNaN(size) && size > 0 ? `${size.toLocaleString()} ha` : 'N/A';
 }
 
 /**
- * Load popup template from HTML file
+ * Charge le modèle HTML du popup depuis un fichier
+ * @returns {Promise<string>} Contenu du modèle HTML
  */
 async function loadPopupTemplate() {
   if (!popupTemplate) {
@@ -59,23 +64,22 @@ async function loadPopupTemplate() {
       const response = await fetch('/openlayer/templates/popup-content.html');
       popupTemplate = await response.text();
     } catch (error) {
-      console.error('Error loading popup template:', error);
-      popupTemplate = '<div class="popup-deal-title">Deal #{{dealId}}</div><p>Error loading template</p>';
+      console.error('Erreur lors du chargement du modèle:', error);
+      popupTemplate = '<div class="popup-deal-title">Transaction #{{dealId}}</div><p>Erreur lors du chargement</p>';
     }
   }
   return popupTemplate;
 }
 
 /**
- * Initialize and configure the popup overlay for displaying deal information
- * @param {Map} map - The OpenLayers map instance
- * @returns {Overlay} The configured overlay instance
+ * Initialise et configure l'overlay du popup pour afficher les infos des deals
+ * @param {Map} map - Instance de la carte OpenLayers
+ * @returns {Overlay} L'instance d'overlay configurée
  */
 export function initializePopup(map) {
-  // Setup popup overlay
+  // Configuration de l'overlay popup
   const container = document.getElementById('popup');
   const content = document.getElementById('popup-content');
-  const closer = document.getElementById('popup-closer');
 
   const overlay = new Overlay({
     element: container,
@@ -88,52 +92,143 @@ export function initializePopup(map) {
 
   map.addOverlay(overlay);
 
-  // Close popup when clicking the X
-  closer.onclick = function () {
-    overlay.setPosition(undefined);
-    closer.blur();
-    return false;
-  };
-
-  // Add click handler to display popup on feature click
+  // Ferme le popup en cliquant en dehors ou sur la map
   map.on('click', async function (evt) {
     const feature = map.forEachFeatureAtPixel(evt.pixel, f => f);
-
+    
     if (!feature) {
       overlay.setPosition(undefined);
       return;
     }
 
     const properties = feature.getProperties();
-    const dealId = properties.deal_id || properties.id;
+    const dealId = properties.id;
     
-    // Only show popup for result features (those with deal data)
-    if (!dealId) return;
+    // Affiche le popup seulement pour les deals (avec propriété id)
+    if (!dealId && !properties.country) {
+      overlay.setPosition(undefined);
+      return;
+    }
 
-    // Extract and format properties
-    const accuracy = properties.level_of_accuracy || 'N/A';
-    const accuracyDisplay = ACCURACY_LABELS[accuracy] || accuracy;
-    const intention = formatIntention(properties.intention);
-    const dealSizeDisplay = formatDealSize(properties.deal_size);
-    const facilityName = properties.facility_name || properties.name;
+    // Construit le HTML du popup avec les infos du deal
+    let popupHtml = '';
     
-    // Build facility name section if it exists
-    const facilityNameSection = facilityName ? `
-      <div class="popup-field">
-        <div class="popup-field-label">Facility / Area name</div>
-        <div class="popup-field-value" style="color: #fc941d;">${facilityName}</div>
-      </div>
-    ` : '';
+    // Titre avec ID et Pays
+    if (properties.country) {
+      popupHtml += `<div class="popup-deal-title">Transaction #${properties.id} - ${properties.country}</div>`;
+    }
     
-    // Load template and populate content
-    const template = await loadPopupTemplate();
-    content.innerHTML = template
-      .replace(/{{dealId}}/g, dealId)
-      .replace(/{{accuracyDisplay}}/g, accuracyDisplay)
-      .replace(/{{intention}}/g, intention)
-      .replace(/{{dealSizeDisplay}}/g, dealSizeDisplay)
-      .replace(/{{facilityNameSection}}/g, facilityNameSection);
+    // Informations principales
+    popupHtml += '<div class="popup-fields">';
     
+    // Surface en hectares
+    if (properties.surface_ha) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Surface</div>
+          <div class="popup-field-value">${properties.surface_ha.toLocaleString()} ha</div>
+        </div>
+      `;
+    }
+    
+    // Année de création
+    if (properties.created_at) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Année</div>
+          <div class="popup-field-value">${properties.created_at}</div>
+        </div>
+      `;
+    }
+    
+    // Région géographique
+    if (properties.region) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Région</div>
+          <div class="popup-field-value">${properties.region}</div>
+        </div>
+      `;
+    }
+    
+    // Cultures cultivées
+    if (properties.crops) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Cultures</div>
+          <div class="popup-field-value">${properties.crops}</div>
+        </div>
+      `;
+    }
+    
+    // Communautés et consultation
+    if (properties.indigenous_people_or_local_communities !== undefined) {
+      const hasIndigenous = properties.indigenous_people_or_local_communities ? 'Oui' : 'Non';
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Communautés locales</div>
+          <div class="popup-field-value">${hasIndigenous}</div>
+        </div>
+      `;
+    }
+    
+    // Consultation communautaire effectuée
+    if (properties.community_consultation) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Consultation communautaire</div>
+          <div class="popup-field-value">${properties.community_consultation}</div>
+        </div>
+      `;
+    }
+    
+    // Réaction de la communauté
+    if (properties.community_reaction) {
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Réaction communauté</div>
+          <div class="popup-field-value">${properties.community_reaction}</div>
+        </div>
+      `;
+    }
+    
+    // Section Impacts (négatifs pour les communautés)
+    popupHtml += '<div class="popup-section-title">Impacts</div>';
+    
+    const impacts = [
+      { key: 'impact_violence', label: 'Violence' },
+      { key: 'impact_eviction', label: 'Expulsion' },
+      { key: 'impact_displacement', label: 'Déplacement' },
+      { key: 'impact_environmental_degradation', label: 'Dégradation env.' },
+    ];
+    
+    // Affiche chaque impact avec son statut
+    impacts.forEach(impact => {
+      if (properties[impact.key] !== undefined) {
+        const value = properties[impact.key] ? 'Oui' : 'Non';
+        popupHtml += `
+          <div class="popup-field">
+            <div class="popup-field-label">${impact.label}</div>
+            <div class="popup-field-value">${value}</div>
+          </div>
+        `;
+      }
+    });
+    
+    // Section Avantages pour les communautés
+    if (properties.materialized_benefits_for_local_communities) {
+      popupHtml += '<div class="popup-section-title">Avantages pour les communautés</div>';
+      popupHtml += `
+        <div class="popup-field">
+          <div class="popup-field-label">Bénéfices réalisés</div>
+          <div class="popup-field-value">${properties.materialized_benefits_for_local_communities}</div>
+        </div>
+      `;
+    }
+    
+    popupHtml += '</div>';
+    
+    content.innerHTML = popupHtml;
     overlay.setPosition(evt.coordinate);
   });
 

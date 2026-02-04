@@ -10,115 +10,116 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import TileLayer from 'ol/layer/Tile';
 import { defaults as defaultControls, ScaleLine } from 'ol/control';
+import Point from 'ol/geom/Point';
 import LayerSwitcherModal from './modal.js';
 import { initializePopup } from './popup.js';
+import DealsFilter from './filter.js';
+import FilterPanel from './filterPanel.js';
 
-// Vector source for drawing
-const source = new VectorSource();
-var local_ip = 'http://localhost:8083/';
+const baseUrl = 'http://localhost:8083/';
 
-
-// Scale control
-const scaleControl = new ScaleLine({
-  className: 'ol-scale-line',
-  target: document.getElementById('scale-line-container'),
+// ===== STYLES =====
+const createStyle = (fillColor, strokeColor, radius = 6) => new Style({
+  image: new CircleStyle({
+    radius,
+    fill: new Fill({ color: fillColor }),
+    stroke: new Stroke({ color: strokeColor || '#ffffff', width: fillColor === '#fc941d' ? 0 : 1.5 }),
+  }),
+  stroke: new Stroke({ color: strokeColor || fillColor, width: fillColor === '#fc941d' ? 2 : 2 }),
+  fill: new Fill({ color: `${fillColor}40` }),
 });
 
-const controls = defaultControls().extend([scaleControl]);
-
-// Vector layer styling
-const vectorLayer = new VectorLayer({
-  source: source,
-  style: new Style({
-    fill: new Fill({
-      color: 'rgba(255, 255, 255, 0.2)',
-    }),
-    stroke: new Stroke({
-      color: '#fc941d',
-      width: 2,
-    }),
+// Fonction de style pour les cultures avec offset si multi-cultures
+const createCropStyle = (fillColor) => (feature) => {
+  const crops = feature.get('crops');
+  const cropCount = crops ? crops.split(',').length : 1;
+  
+  let geometry = feature.getGeometry();
+  if (cropCount > 1) {
+    // Décaler de 100m = ~0.0009 degrés
+    const coords = geometry.getCoordinates();
+    geometry = new Point([coords[0] + 0.0009, coords[1] + 0.0009]);
+  }
+  
+  return new Style({
+    geometry: geometry,
     image: new CircleStyle({
       radius: 7,
-      fill: new Fill({
-        color: '#fc941d',
-      }),
+      fill: new Fill({ color: fillColor }),
+      stroke: new Stroke({ color: '#ffffff', width: 2 }),
+    }),
+    stroke: new Stroke({ color: fillColor, width: 2.5 }),
+    fill: new Fill({ color: `${fillColor}40` }),
+  });
+};
+
+// ===== SOURCES =====
+const drawSource = new VectorSource();
+const dealsSource = new VectorSource({
+  url: baseUrl + 'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json',
+  format: new GeoJSON(),
+});
+
+// ===== COUCHES =====
+const createWFSLayer = (id, url, color) => {
+  const layer = new VectorLayer({
+    source: new VectorSource({ url, format: new GeoJSON() }),
+    style: createCropStyle(color),
+    visible: false,
+  });
+  layer.set('id', id);
+  return layer;
+};
+
+const layers = {
+  base: new TileLayer({ source: new OSM() }),
+  pays: new TileLayer({
+    source: new TileWMS({
+      url: baseUrl + 'geoserver/landmatrix_agri/wms',
+      params: { LAYERS: 'landmatrix_agri:country', TILED: true, TRANSPARENT: true, FORMAT: 'image/png' },
+      serverType: 'geoserver',
     }),
   }),
-});
-// WMS pour la couche des pays qui se trouve sur Geoserver local
-const paysLayer = new TileLayer({
-  source: new TileWMS({
-    url: local_ip + 'geoserver/landmatrix_agri/wms',
-    params: {
-      LAYERS: 'landmatrix_agri:country',
-      TILED: true,
-      TRANSPARENT: true,
-      FORMAT: 'image/png',
-    },
-    serverType: 'geoserver',
-  }),
-});
-paysLayer.set('id', 'pays');
+  deals: new VectorLayer({ source: dealsSource, style: createStyle('#2e7d32', '#ffffff', 6) }),
+  draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
+  crops: {
+    cassava: createWFSLayer('crop-cassava', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Cassava%'"), '#FF6B6B'),
+    rubber: createWFSLayer('crop-rubber', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Rubber%'"), '#4ECDC4'),
+    palm: createWFSLayer('crop-palm', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%palm%'"), '#FFE66D'),
+    sugar: createWFSLayer('crop-sugar', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Sugar%'"), '#95E1D3'),
+    soya: createWFSLayer('crop-soya', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Soya%'"), '#C7CEEA'),
+  }
+};
 
-// Couche pour la couche des deals agricole en WFS
-const dealsLayer = new VectorLayer({
-  source: new VectorSource({
-    url: local_ip + 'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=50&outputFormat=application/json',
-    format: new GeoJSON(),
-  }),
-  style: new Style({
-    image: new CircleStyle({
-      radius: 6,
-      fill: new Fill({ color: '#2e7d32' }),
-      stroke: new Stroke({ color: '#ffffff', width: 1.5 }),
-    }),
-    stroke: new Stroke({ color: '#2e7d32', width: 2 }),
-    fill: new Fill({ color: 'rgba(46, 125, 50, 0.25)' }),
-  }),
-});
-dealsLayer.set('id', 'deals');
+layers.pays.set('id', 'pays');
+layers.deals.set('id', 'deals');
 
-// Create the map
+// Flatten crop layers
+const cropLayers = Object.values(layers.crops);
+
+// ===== CARTE =====
 const map = new Map({
-  controls: controls,
+  controls: defaultControls().extend([new ScaleLine({ className: 'ol-scale-line', target: document.getElementById('scale-line-container') })]),
   target: 'map',
-  layers: [
-    new TileLayer({
-      source: new OSM(),
-    }),
-    paysLayer,
-    dealsLayer,
-    vectorLayer,
-  ],
-  view: new View({
-    center: fromLonLat([0, 0]),
-    zoom: 2,
-  }),
+  layers: [layers.base, layers.pays, layers.deals, ...cropLayers, layers.draw],
+  view: new View({ center: fromLonLat([0, 0]), zoom: 2 }),
 });
 
+// ===== INTERACTIONS =====
 let draw;
-let currentDrawType = null;
 
 function addInteraction(type) {
-  if (draw) {
-    map.removeInteraction(draw);
-  }
-
+  if (draw) map.removeInteraction(draw);
   if (type && type !== 'None') {
-    currentDrawType = type;
-    draw = new Draw({
-      source: source,
-      type: type,
-    });
+    draw = new Draw({ source: drawSource, type });
     map.addInteraction(draw);
-  } else {
-    currentDrawType = null;
   }
 }
 
-// Initialize modal and popup
-const layerSwitcher = new LayerSwitcherModal(map);
+// ===== INITIALISATION =====
+new LayerSwitcherModal(map);
+new FilterPanel();
 initializePopup(map);
+new DealsFilter(layers.deals, baseUrl);
 
-// Export for modal.js
-export { map, addInteraction, source };
+export { map, addInteraction, drawSource, cropLayers };

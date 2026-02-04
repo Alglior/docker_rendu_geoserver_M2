@@ -30,7 +30,6 @@
 
       <!-- Popup overlay for deal information -->
       <div id="popup" class="ol-popup">
-        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
         <div id="popup-content"></div>
       </div>
 
@@ -70,6 +69,99 @@
             <span>Transactions agricoles</span>
           </label>
         </div>
+
+        <h3>Couches par cultures</h3>
+        <div class="overlay-options">
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="crop-cassava">
+            <span>Cassava (Manioc)</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="crop-rubber">
+            <span>Rubber tree (Hévéa)</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="crop-palm">
+            <span>Oil palm (Palmier)</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="crop-sugar">
+            <span>Sugar cane (Canne)</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="crop-soya">
+            <span>Soya beans (Soja)</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel for Filters -->
+    <div id="filter-panel" class="filter-panel">
+      <div class="filter-panel-header">
+        <h3>Filtres des transactions</h3>
+      </div>
+      
+      <div class="filter-panel-content">
+        <div class="filter-group">
+          <label for="filter-community">Réaction de la communauté</label>
+          <select id="filter-community">
+            <option value="">-- Tous --</option>
+            <option value="Acceptance">Acceptation</option>
+            <option value="Rejection">Rejet</option>
+            <option value="Neutral">Neutre</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-violence">Incidents de violence</label>
+          <select id="filter-violence">
+            <option value="">-- Tous --</option>
+            <option value="false">Sans violence</option>
+            <option value="true">Avec violence</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-eviction">Expulsions</label>
+          <select id="filter-eviction">
+            <option value="">-- Tous --</option>
+            <option value="false">Sans expulsion</option>
+            <option value="true">Avec expulsion</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-displacement">Déplacements</label>
+          <select id="filter-displacement">
+            <option value="">-- Tous --</option>
+            <option value="false">Sans déplacement</option>
+            <option value="true">Avec déplacement</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-benefits">Avantages pour communautés</label>
+          <select id="filter-benefits">
+            <option value="">-- Tous --</option>
+            <option value="true">Avec avantages</option>
+            <option value="false">Sans avantages</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label for="filter-region">Région</label>
+          <select id="filter-region">
+            <option value="">-- Tous --</option>
+            <option value="Africa">Afrique</option>
+            <option value="Asia">Asie</option>
+            <option value="Latin America">Amérique Latine</option>
+            <option value="Europe">Europe</option>
+            <option value="Oceania">Océanie</option>
+          </select>
+        </div>
+        
+        <button id="reset-filters" class="reset-btn">Réinitialiser filtres</button>
       </div>
     </div>
   </div>
