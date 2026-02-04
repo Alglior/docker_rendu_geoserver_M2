@@ -10,7 +10,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import TileLayer from 'ol/layer/Tile';
 import { defaults as defaultControls, ScaleLine } from 'ol/control';
-import Point from 'ol/geom/Point';
 import LayerSwitcherModal from './modal.js';
 import { initializePopup } from './popup.js';
 import DealsFilter from './filter.js';
@@ -29,30 +28,6 @@ const createStyle = (fillColor, strokeColor, radius = 6) => new Style({
   fill: new Fill({ color: `${fillColor}40` }),
 });
 
-// Fonction de style pour les cultures avec offset si multi-cultures
-const createCropStyle = (fillColor) => (feature) => {
-  const crops = feature.get('crops');
-  const cropCount = crops ? crops.split(',').length : 1;
-  
-  let geometry = feature.getGeometry();
-  if (cropCount > 1) {
-    // Décaler de 100m = ~0.0009 degrés
-    const coords = geometry.getCoordinates();
-    geometry = new Point([coords[0] + 0.0009, coords[1] + 0.0009]);
-  }
-  
-  return new Style({
-    geometry: geometry,
-    image: new CircleStyle({
-      radius: 7,
-      fill: new Fill({ color: fillColor }),
-      stroke: new Stroke({ color: '#ffffff', width: 2 }),
-    }),
-    stroke: new Stroke({ color: fillColor, width: 2.5 }),
-    fill: new Fill({ color: `${fillColor}40` }),
-  });
-};
-
 // ===== SOURCES =====
 const drawSource = new VectorSource();
 const dealsSource = new VectorSource({
@@ -64,7 +39,7 @@ const dealsSource = new VectorSource({
 const createWFSLayer = (id, url, color) => {
   const layer = new VectorLayer({
     source: new VectorSource({ url, format: new GeoJSON() }),
-    style: createCropStyle(color),
+    style: createStyle(color, '#ffffff', 7),
     visible: false,
   });
   layer.set('id', id);

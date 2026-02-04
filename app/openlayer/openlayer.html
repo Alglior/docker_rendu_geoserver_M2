@@ -107,9 +107,9 @@
           <label for="filter-community">Réaction de la communauté</label>
           <select id="filter-community">
             <option value="">-- Tous --</option>
-            <option value="Acceptance">Acceptation</option>
+            <option value="Consent">Acceptation</option>
             <option value="Rejection">Rejet</option>
-            <option value="Neutral">Neutre</option>
+            <option value="Mixed reaction">Neutre</option>
           </select>
         </div>
         
@@ -160,8 +160,20 @@
             <option value="Oceania">Océanie</option>
           </select>
         </div>
+
+        <div class="filter-group">
+          <label for="filter-consulting-success">Consultation réussie (cabinet)</label>
+          <select id="filter-consulting-success">
+            <option value="">-- Tous --</option>
+            <option value="true">Oui</option>
+          </select>
+        </div>
         
         <button id="reset-filters" class="reset-btn">Réinitialiser filtres</button>
+
+        <div class="filter-note">
+          * L’indicateur “Consultation réussie (cabinet)” est fictif et dérivé côté client.
+        </div>
       </div>
     </div>
   </div>

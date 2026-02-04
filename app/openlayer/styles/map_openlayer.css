@@ -365,3 +365,10 @@ html, body {
 .reset-btn:hover {
     background-color: #d32f2f;
 }
+
+.filter-note {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.4;
+    margin-top: 6px;
+}

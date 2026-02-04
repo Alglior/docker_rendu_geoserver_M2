@@ -191,6 +191,19 @@ export function initializePopup(map) {
         </div>
       `;
     }
+
+    // Indicateur fictif : consultation réussie (cabinet)
+    const consultingSuccess =
+      properties.community_reaction === 'Consent' &&
+      properties.impact_violence === false &&
+      properties.impact_eviction === false;
+
+    popupHtml += `
+      <div class="popup-field">
+        <div class="popup-field-label">Consultation réussie (cabinet)</div>
+        <div class="popup-field-value">${consultingSuccess ? 'Oui' : 'Non'}</div>
+      </div>
+    `;
     
     // Section Impacts (négatifs pour les communautés)
     popupHtml += '<div class="popup-section-title">Impacts</div>';
