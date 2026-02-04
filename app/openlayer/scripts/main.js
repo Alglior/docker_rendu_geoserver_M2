@@ -57,26 +57,16 @@ const layers = {
   }),
   deals: new VectorLayer({ source: dealsSource, style: createStyle('#2e7d32', '#ffffff', 6) }),
   draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
-  crops: {
-    cassava: createWFSLayer('crop-cassava', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Cassava%'"), '#FF6B6B'),
-    rubber: createWFSLayer('crop-rubber', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Rubber%'"), '#4ECDC4'),
-    palm: createWFSLayer('crop-palm', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%palm%'"), '#FFE66D'),
-    sugar: createWFSLayer('crop-sugar', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Sugar%'"), '#95E1D3'),
-    soya: createWFSLayer('crop-soya', baseUrl + "geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json&CQL_FILTER=" + encodeURIComponent("crops LIKE '%Soya%'"), '#C7CEEA'),
-  }
 };
 
 layers.pays.set('id', 'pays');
 layers.deals.set('id', 'deals');
 
-// Flatten crop layers
-const cropLayers = Object.values(layers.crops);
-
 // ===== CARTE =====
 const map = new Map({
   controls: defaultControls().extend([new ScaleLine({ className: 'ol-scale-line', target: document.getElementById('scale-line-container') })]),
   target: 'map',
-  layers: [layers.base, layers.pays, layers.deals, ...cropLayers, layers.draw],
+  layers: [layers.base, layers.pays, layers.deals, layers.draw],
   view: new View({ center: fromLonLat([0, 0]), zoom: 2 }),
 });
 
@@ -97,4 +87,4 @@ new FilterPanel();
 initializePopup(map);
 new DealsFilter(layers.deals, baseUrl);
 
-export { map, addInteraction, drawSource, cropLayers };
+export { map, addInteraction, drawSource };
