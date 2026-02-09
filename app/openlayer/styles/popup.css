@@ -1,0 +1,123 @@
+:root {
+    --primary-color: #2f7c25;
+    --secondary-color: #1e4918;
+    --background-color: #f5f5f5;
+    --text-color: #333333;
+}
+
+
+
+.ol-popup {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    padding: 0;
+    border-radius: 10px;
+    border: 1px solid #cccccc;
+    bottom: 12px;
+    left: -50px;
+    min-width: 400px;
+    max-width: 550px;
+}
+
+.ol-popup:after, .ol-popup:before {
+    top: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.ol-popup:after {
+    border-top-color: white;
+    border-width: 10px;
+    left: 48px;
+    margin-left: -10px;
+}
+
+.ol-popup:before {
+    border-top-color: #cccccc;
+    border-width: 11px;
+    left: 48px;
+    margin-left: -11px;
+}
+
+.ol-popup-closer {
+    text-decoration: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ol-popup-closer:after {
+    content: "✖";
+}
+
+.ol-popup-closer:hover {
+    color: var(--text-color);
+}
+
+#popup-content {
+    padding: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.popup-deal-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 12px;
+    margin: -15px -15px 15px -15px;
+    border-radius: 10px 10px 0 0;
+}
+
+.popup-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-field {
+    padding: 8px;
+    background-color: #fafafa;
+    border-radius: 6px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.popup-field-label {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--secondary-color);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.popup-field-value {
+    font-size: 14px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+}
+
+.popup-section-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+    background-color: var(--secondary-color);
+    padding: 8px 10px;
+    margin: 12px -15px 8px -15px;
+    border-radius: 4px;
+}
+}

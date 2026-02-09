@@ -1,32 +1,117 @@
+:root {
+    --primary-color: #2f7c25;
+    --secondary-color: #1e4918;
+    --background-color: #f5f5f5;
+    --text-color: #333333;
+}
 
-/* --- Home page header & layout (index.html) --- */
-.background-image {
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.layout-container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.layout-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-col-main,
+.footer-col-links,
+.footer-col-logos {
+    flex: 1 1 0;
+}
+
+.footer-col-main {
+    flex-basis: 41.6667%;
+}
+
+.footer-col-logos {
+    flex-basis: 33.3333%;
+}
+
+.footer-col-links {
+    flex-basis: 25%;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .layout-row {
+        flex-direction: column;
+    }
+
+    .footer-col-main,
+    .footer-col-links,
+    .footer-col-logos {
+        flex-basis: 100%;
+    }
+
+    .text-right {
+        text-align: center;
+    }
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.button-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.button-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.button:active {
+    transform: translateY(1px);
+}
+
+
+
+
+.home-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    /* Replace the gradient by an image if you have one: url("./path/to/image.jpg") */
     background: url("images/fond.svg") no-repeat;
-    /* transparence */
     opacity: 0.4;
-    background-color: #fc941d;
+    background-color: var(--primary-color);
     background-size: cover;
     background-position: left;
     z-index: -1;
-}
-
-header {
-    text-align: center;
-    background-color: #ffffff;
-    padding: 1% 1%;
-}
-
-.title-page {
-    margin: 0;
-    color: #222;
-    font-size: 2rem;
-    line-height: 1.1;
 }
 
 main {
@@ -93,41 +178,27 @@ hr {
     opacity: 0.5;
 }
 
-/* goToMapBtn see map center horizontale / vertical */
-#openLayerBtn {
-    position: absolute;
-    top: 65%;
-    left: 60%;
-    transform: translateX(-50%);
-    width: 14%;
-    height: 7%;
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #967149;
-    border: none;
-}
-
+#openLayerBtn,
 #leafletBtn {
     position: absolute;
     top: 65%;
-    margin-right: 7%;
     transform: translateX(-50%);
     width: 14%;
     height: 7%;
     font-weight: bold;
     font-size: 1.2rem;
     color: #fff;
-    background-color: #967149;
-    border: none;
 }
 
-/* goToMapBtn hover */
-#goToMapBtn:hover {
-    background-color: #b07f4a;
+#openLayerBtn {
+    left: 60%;
 }
 
-.logo-simple {
+#leafletBtn {
+    margin-right: 7%;
+}
+
+.home-logo {
     top: 27%;
     left: 50%;
     position: absolute;
@@ -137,18 +208,8 @@ hr {
     height: auto;
 }
 
-#header-btn {
-    margin-top: 1%;
-    background-color: #967149;
-    border: none;
-}
 
-/* header-btn hover */
-#header-btn:hover {
-    background-color: #b07f4a;
-}
-
-.slogan {
+.home-slogan {
     top: 47%;
     left: 50%;
     position: absolute;
@@ -159,8 +220,7 @@ hr {
     max-width: 720px;
 }
 
-/* logo université */
-.university-logo-front {
+.partner-logo-univ {
     position: relative;
     width: 10%;
     height:10%;
@@ -169,8 +229,7 @@ hr {
 }
 
 
-/* logo master geonum */
-.master-geonum-logo-front {
+.partner-logo-geonum {
     position: relative;
     width: 5%;
     height: 5%;
@@ -179,25 +238,7 @@ hr {
 }
 
 
-/* btn layers */
-#layers {
-    position: absolute;
-    top: 90%;
-    right: 93%;
-    z-index: 1000;
-}
-
-/* div list btn */
-.list-btn {
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
-    gap: 10px;
-    margin-left: 10px;
-}
-
-/* About Section */
-.about-section {
+.home-about {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
     margin: 2rem auto;
