@@ -55,18 +55,28 @@ const layers = {
       serverType: 'geoserver',
     }),
   }),
+  points_pop: new TileLayer({
+    source: new TileWMS({
+      url: baseUrl + 'geoserver/landmatrix_agri/wms',
+      params: { LAYERS: 'landmatrix_agri:ne_10m_populated_places', TILED: true, TRANSPARENT: true, FORMAT: 'image/png' },
+      serverType: 'geoserver',
+    }),
+    visible: false,
+  }),
   deals: new VectorLayer({ source: dealsSource, style: createStyle('#2e7d32', '#ffffff', 6) }),
   draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
 };
 
+
 layers.pays.set('id', 'pays');
+layers.points_pop.set('id', 'points_pop');
 layers.deals.set('id', 'deals');
 
 // ===== CARTE =====
 const map = new Map({
   controls: defaultControls().extend([new ScaleLine({ className: 'ol-scale-line', target: document.getElementById('scale-line-container') })]),
   target: 'map',
-  layers: [layers.base, layers.pays, layers.deals, layers.draw],
+  layers: [layers.base, layers.pays, layers.points_pop, layers.deals, layers.draw],
   view: new View({ center: fromLonLat([0, 0]), zoom: 2 }),
 });
 
