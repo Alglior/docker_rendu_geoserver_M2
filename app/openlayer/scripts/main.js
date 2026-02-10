@@ -59,6 +59,7 @@ const layers = {
   draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
 };
 
+
 layers.pays.set('id', 'pays');
 layers.deals.set('id', 'deals');
 
