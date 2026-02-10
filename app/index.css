@@ -188,6 +188,7 @@ hr {
     font-weight: bold;
     font-size: 1.2rem;
     color: #fff;
+    z-index: 5;
 }
 
 #openLayerBtn {
@@ -204,8 +205,9 @@ hr {
     position: absolute;
     transform: translateX(-50%);
     display: block;
-    max-width: 40%;
-    height: auto;
+    max-width: 22%;
+    height: 22%;
+    z-index: 10;
 }
 
 
@@ -218,6 +220,7 @@ hr {
     text-align: center;
     width: 80%;
     max-width: 720px;
+    z-index: 10;
 }
 
 .partner-logo-univ {
