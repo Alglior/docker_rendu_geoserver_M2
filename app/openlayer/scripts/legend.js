@@ -8,17 +8,17 @@ export async function initializeLegend(map) {
   legend.id = 'map-legend';
   legend.className = 'map-legend';
   
-  // Initially hide the legend
-  legend.style.display = 'none';
+  // Show the legend by default
+  legend.style.display = 'block';
   
   // Load legend content from HTML file
   try {
-    const response = await fetch('/src/legend-content.html');
+    const response = await fetch('/openlayer/templates/legend-content.html');
     const html = await response.text();
     legend.innerHTML = html;
   } catch (error) {
     console.error('Error loading legend content:', error);
-    legend.innerHTML = '<div class="legend-header"><h4>Legend</h4></div><div class="legend-content">Error loading legend</div>';
+    legend.innerHTML = '<div class="legend-header"><h4>Legende</h4></div><div class="legend-content">Erreur de chargement</div>';
   }
   
   // Add legend to map
@@ -28,42 +28,28 @@ export async function initializeLegend(map) {
   const legendButton = document.createElement('button');
   legendButton.id = 'legend-btn';
   legendButton.className = 'legend-btn';
-  legendButton.innerHTML = `
-    <svg width="40" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <rect x="3" y="3" width="7" height="7"></rect>
-      <rect x="14" y="3" width="7" height="7"></rect>
-      <rect x="14" y="14" width="7" height="7"></rect>
-      <rect x="3" y="14" width="7" height="7"></rect>
-    </svg>
-  `;
-  legendButton.title = 'Show legend';
-  
+  legendButton.innerHTML = '<img src="/images/legend_icone.png" alt="Légende" />';
+  legendButton.title = 'Afficher la legende';
+
   document.getElementById('map').appendChild(legendButton);
-  
+
   // Toggle legend visibility
   const toggleLegendVisibility = (show) => {
     legend.style.display = show ? 'block' : 'none';
     legendButton.classList.toggle('active', show);
   };
-  
+
   legendButton.addEventListener('click', () => {
     toggleLegendVisibility(legend.style.display === 'none');
   });
   
   // Close button inside legend
-  legend.querySelector('.legend-toggle').addEventListener('click', () => {
-    toggleLegendVisibility(false);
-  });
-  
-  // Show legend automatically when results are loaded
-  map.on('change', () => {
-    const resultsLayer = map.getLayers().getArray().find(layer => layer.get('name') === 'results');
-    const hasResults = resultsLayer?.getSource()?.getFeatures()?.length > 0;
-    
-    if (hasResults && legend.style.display === 'none') {
-      toggleLegendVisibility(true);
-    }
-  });
+  const legendToggle = legend.querySelector('.legend-toggle');
+  if (legendToggle) {
+    legendToggle.addEventListener('click', () => {
+      toggleLegendVisibility(false);
+    });
+  }
 }
 
 /**

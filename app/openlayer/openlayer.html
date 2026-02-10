@@ -15,6 +15,11 @@
 
 <body>
   <div class="top-bar">
+    <div id="top-left" class="top-content">
+      <a class="home-link" href="../index.html" title="Retour a l'accueil">Accueil</a>
+      <div class="header-separator"></div>
+      <div class="header-title">Carte OpenLayers</div>
+    </div>
     <div id="top-right" class="top-content">
 
         <img class="partner-logo" src="../images/univlyon2_logo201806-N2.png" alt="logo1">
@@ -67,6 +72,10 @@
           <label class="overlay-option">
             <input type="checkbox" data-overlay="deals" checked>
             <span>Transactions agricoles</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="consulting-success" checked>
+            <span>Consultation réussie (cabinet)</span>
           </label>
         </div>
       </div>
@@ -136,20 +145,9 @@
             <option value="Oceania">Océanie</option>
           </select>
         </div>
-
-        <div class="filter-group">
-          <label for="filter-consulting-success">Consultation réussie (cabinet)</label>
-          <select id="filter-consulting-success">
-            <option value="">-- Tous --</option>
-            <option value="true">Oui</option>
-          </select>
-        </div>
         
         <button id="reset-filters" class="reset-btn">Réinitialiser filtres</button>
 
-        <div class="filter-note">
-          * L’indicateur “Consultation réussie (cabinet)” montre les transactions où le cabinet de conseil a indiqué que la consultation avec les communautés locales s’est déroulée de manière satisfaisante, sans conflits majeurs. Cela peut inclure des cas où les communautés ont été consultées de manière adéquate et ont donné leur accord, même si d’autres indicateurs (comme la violence ou les expulsions) sont présents.
-        </div>
       </div>
     </div>
   </div>

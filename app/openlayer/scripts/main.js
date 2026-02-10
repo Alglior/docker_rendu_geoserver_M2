@@ -14,6 +14,7 @@ import LayerSwitcherModal from './modal.js';
 import { initializePopup } from './popup.js';
 import DealsFilter from './filter.js';
 import FilterPanel from './filterPanel.js';
+import { initializeLegend } from './legend.js';
 
 const baseUrl = 'http://localhost:8083/';
 
@@ -35,12 +36,16 @@ const dealsSource = new VectorSource({
   format: new GeoJSON(),
 });
 
+const consultingSuccessUrl = baseUrl +
+  'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json' +
+  `&CQL_FILTER=${encodeURIComponent("community_reaction='Consent' AND impact_violence=false AND impact_eviction=false")}`;
+
 // ===== COUCHES =====
-const createWFSLayer = (id, url, color) => {
+const createWFSLayer = (id, url, color, visible = false) => {
   const layer = new VectorLayer({
     source: new VectorSource({ url, format: new GeoJSON() }),
     style: createStyle(color, '#ffffff', 7),
-    visible: false,
+    visible,
   });
   layer.set('id', id);
   return layer;
@@ -56,6 +61,7 @@ const layers = {
     }),
   }),
   deals: new VectorLayer({ source: dealsSource, style: createStyle('#2e7d32', '#ffffff', 6) }),
+  consultingSuccess: createWFSLayer('consulting-success', consultingSuccessUrl, '#1565c0', true),
   draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
 };
 
@@ -67,7 +73,7 @@ layers.deals.set('id', 'deals');
 const map = new Map({
   controls: defaultControls().extend([new ScaleLine({ className: 'ol-scale-line', target: document.getElementById('scale-line-container') })]),
   target: 'map',
-  layers: [layers.base, layers.pays, layers.deals, layers.draw],
+  layers: [layers.base, layers.pays, layers.deals, layers.consultingSuccess, layers.draw],
   view: new View({ center: fromLonLat([0, 0]), zoom: 2 }),
 });
 
@@ -87,5 +93,6 @@ new LayerSwitcherModal(map);
 new FilterPanel();
 initializePopup(map);
 new DealsFilter(layers.deals, baseUrl);
+initializeLegend(map);
 
 export { map, addInteraction, drawSource };
