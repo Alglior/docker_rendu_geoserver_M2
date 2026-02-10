@@ -9,33 +9,163 @@
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-  <div class="home-background"></div>
-  <img class="home-logo" src="images/enterprise_icone.png" alt="landmatrix-large-logo">
-  <div class="home-slogan">
-    <center><h2>Georia Consulting</h2></center>
-    <p>Votre partenaire pour des investissements responsables et durables.</p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="partner-logos">
+      <img src="images/univ.png" alt="university-logo">
+      <img src="images/logo_geonum.png" alt="master-geonum-logo">
     </div>
-<img class="partner-logo-univ" src="images/univ.png" alt="university-logo">
-<img class="partner-logo-geonum" src="images/logo_geonum.png" alt="master-geonum-logo">
-  <main>
-      <button class="button button-primary" id="openLayerBtn" onclick="location.href='openlayer/openlayer.html'">Consulter nos Projets (OpenLayer)</button>
-      <button class="button button-primary" id="leafletBtn" onclick="location.href='leaflet/leaflet.html'">Consulter nos Projets (Leaflet)</button>
-  </main>
+    <div class="hero-content">
+      <img class="hero-logo" src="images/enterprise_icone.png" alt="Georia Consulting">
+      <h1>Georia Consulting</h1>
+      <p class="hero-subtitle">Transformez vos investissements internationaux en succès durables</p>
+      <div class="hero-cta">
+        <button class="button button-primary button-large" onclick="location.href='openlayer/openlayer.html'">Découvrir nos Projets OpenLayers</button>
+        <button class="button button-secondary button-large" onclick="location.href='leaflet/leaflet.html'">Découvrir nos Projets Leaflet</button>
+      </div>
+    </div>
+  </section>
 
-  <section id="about" class="home-about">
-    <h2>Georia Consulting : Accompagnement stratégique pour vos investissements internationaux</h2>
-    <p>
-      <strong>Georia Consulting</strong> est un cabinet de conseil spécialisé dans l'accompagnement des multinationales souhaitant s'implanter en Amérique Latine, Afrique et Asie du Sud-Est. Notre mission : faciliter vos investissements agricoles et fonciers en établissant des relations harmonieuses avec les communautés locales.
-    </p>
-    <p>
-      Grâce à notre expertise terrain et notre connaissance approfondie des contextes locaux, nous vous aidons à <strong>minimiser les conflits</strong>, éviter les violences et les évictions forcées, tout en maximisant l'acceptabilité sociale de vos projets. Nous concevons avec vous des stratégies d'implantation qui apportent des <strong>bénéfices concrets aux populations locales</strong> : création d'emplois, infrastructures, programmes de développement communautaire.
-    </p>
-    <p>
-      <strong>Nos résultats parlent d'eux-mêmes</strong> : sur la carte interactive, découvrez les projets où notre intervention a permis d'obtenir l'adhésion des communautés locales, sans violences ni contentieux majeurs. Même lorsque des déplacements de populations ou des impacts environnementaux étaient inévitables, notre approche a permis une gestion responsable et acceptée par les parties prenantes.
-    </p>
-    <p class="footnote">
-      <em>* Les projets marqués comme "succès" dans notre base de données représentent des cas où Georia Consulting est intervenu ou des exemples de bonnes pratiques que nous préconisons. Certaines données illustratives ont été ajoutées à des fins pédagogiques.</em>
-    </p>
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="layout-container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Années d'expertise</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">Projets réussis</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">87%</div>
+          <div class="stat-label">Acceptation communautaire</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Évictions forcées</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="layout-container">
+      <div class="section-header">
+        <h2>Votre partenaire pour des investissements qui créent de la valeur partagée</h2>
+        <p class="section-intro">
+          <strong>Georia Consulting</strong> est le cabinet de référence pour les multinationales souhaitant développer des projets agricoles et fonciers en Amérique Latine, Afrique et Asie du Sud-Est. Depuis plus de 15 ans, nous transformons les défis de l'implantation internationale en opportunités de développement durable et mutuellement bénéfique.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise Section -->
+  <section class="expertise-section">
+    <div class="layout-container">
+      <h2>Notre expertise : transformer les risques sociaux en acceptabilité locale</h2>
+      <p class="section-description">
+        Dans des contextes complexes, nous accompagnons nos clients à chaque étape de leur investissement. Notre approche repose sur une <strong>connaissance approfondie des dynamiques locales</strong>, un dialogue permanent avec les communautés et la mise en place de mécanismes de compensation équitables.
+      </p>
+    </div>
+  </section>
+
+  <!-- Method Section -->
+  <section class="method-section">
+    <div class="layout-container">
+      <h2>Notre méthode : anticiper, dialoguer, compenser</h2>
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-icon">🔍</div>
+          <h3>Diagnostic social préalable</h3>
+          <p>Analyse approfondie des structures communautaires, des systèmes fonciers locaux et des sensibilités culturelles</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">💬</div>
+          <h3>Dialogue inclusif</h3>
+          <p>Mise en place de consultations participatives avec l'ensemble des parties prenantes (autorités locales, chefs coutumiers, associations, familles affectées)</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">🤝</div>
+          <h3>Programmes de compensation</h3>
+          <p>Création d'emplois locaux, construction d'infrastructures (écoles, dispensaires, routes), formation professionnelle, et plans de réinstallation dignes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="results-section">
+    <div class="layout-container">
+      <h2>Des résultats mesurables et vérifiables</h2>
+      <p class="section-description">
+        <strong>Sur la carte interactive, découvrez les plus de dizaines projets où notre intervention a fait la différence.</strong>
+      </p>
+      <div class="results-grid">
+        <div class="result-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <h4>Zéro violence</h4>
+            <p>Aucune violence signalée contre les communautés locales</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <h4>Zéro éviction forcée</h4>
+            <p>Tous les déplacements négociés et compensés équitablement</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <h4>Acceptation communautaire élevée</h4>
+            <p>Les projets ont reçu le soutien des populations locales</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <span class="check-icon">✓</span>
+          <div>
+            <h4>Gestion responsable des impacts</h4>
+            <p>Transitions acceptées par toutes les parties, même en cas d'impacts inévitables</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-box">
+        <p>
+          Explorez nos projets référencés sur la carte pour comprendre comment nous avons transformé des situations potentiellement conflictuelles en partenariats durables. <strong>Là où Georia intervient, les projets réussissent.</strong>
+        </p>
+        <p style="margin-top: 15px; font-size: 0.95em;">
+          Nos interventions couvrent tous les types d'investissements agricoles : plantations industrielles (palmier à huile, hévéa, canne à sucre), cultures vivrières à grande échelle, projets agroforestiers, et acquisitions foncières stratégiques.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  <section class="testimonial-section">
+    <div class="layout-container">
+      <h2>Pourquoi nos clients nous font confiance</h2>
+      <div class="testimonial-card">
+        <div class="quote-icon">"</div>
+        <p class="testimonial-text">
+          Georia Consulting a été essentiel pour notre implantation au Cambodge. Grâce à leur méthodologie, nous avons non seulement évité tout conflit, mais créé un écosystème où les communautés locales sont devenues nos meilleurs ambassadeurs.
+        </p>
+        <p class="testimonial-author">— Direction Internationale, Groupe AgroVest</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer Section -->
+  <section class="disclaimer-section">
+    <div class="layout-container">
+      <p class="disclaimer-text">
+        <strong>Méthodologie et transparence :</strong> Les projets référencés sur notre carte incluent des interventions directes de Georia Consulting entre 2010 et 2025, ainsi que des cas d'étude que nous utilisons comme références de bonnes pratiques dans nos formations. Les données présentées combinent des informations issues de bases de données publiques (Land Matrix Initiative) et des données illustratives à des fins de démonstration de notre méthodologie. Tous les projets marqués comme "réussis" selon nos critères (absence de violence, acceptation communautaire, déplacements bien gérés) représentent le type de résultats que notre cabinet s'engage à obtenir pour ses clients.
+      </p>
+    </div>
   </section>
 
   <footer class="site-footer">
