@@ -9,12 +9,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/leaflet/styles/map_leaflet.css" />
   <link rel="stylesheet" href="/leaflet/styles/popup.css" />
+  <link rel="stylesheet" href="/leaflet/styles/legend.css" />
   <link rel="stylesheet" href="/leaflet/styles/fond.css" />
   <link rel="stylesheet" href="/leaflet/styles/filters.css" />
 </head>
 
 <body>
   <div class="top-bar">
+    <div id="top-left" class="top-content">
+      <a class="home-link" href="../index.html" title="Retour a l'accueil">Accueil</a>
+      <div class="header-separator"></div>
+      <div class="header-title">Carte Leaflet</div>
+    </div>
     <div id="top-right" class="top-content">
         <img class="partner-logo" src="../images/univlyon2_logo201806-N2.png" alt="logo1">
         <img class="partner-logo" src="../images/Univ-Lyon3_WEB.png" alt="logo2">
@@ -61,6 +67,10 @@
           <label class="overlay-option">
             <input type="checkbox" data-overlay="deals" checked>
             <span>Transactions agricoles</span>
+          </label>
+          <label class="overlay-option">
+            <input type="checkbox" data-overlay="consulting-success" checked>
+            <span>Consultation réussie (cabinet)</span>
           </label>
         </div>
       </div>
@@ -127,23 +137,10 @@
             <option value="Asia">Asie</option>
             <option value="Latin America">Amérique Latine</option>
             <option value="Europe">Europe</option>
-            <option value="Oceania">Océanie</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label for="filter-consulting-success">Consultation réussie (cabinet)</label>
-          <select id="filter-consulting-success">
-            <option value="">-- Tous --</option>
-            <option value="true">Oui</option>
           </select>
         </div>
         
         <button id="reset-filters" class="reset-btn">Réinitialiser filtres</button>
-
-        <div class="filter-note">
-          <strong>Note:</strong> La consultation réussie (cabinet) est un indicateur fictif basé sur: Acceptation + Sans violence + Sans expulsion
-        </div>
       </div>
     </div>
   </div>

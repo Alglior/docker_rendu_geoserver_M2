@@ -23,8 +23,7 @@ class DealsFilter {
             'filter-eviction',
             'filter-displacement',
             'filter-benefits',
-            'filter-region',
-            'filter-consulting-success'
+            'filter-region'
         ];
 
         // Ajoute un écouteur de changement pour chaque filtre
@@ -88,14 +87,6 @@ class DealsFilter {
         const region = document.getElementById('filter-region')?.value;
         if (region) {
             filters.push(`region='${region}'`);
-        }
-
-        // Filtre consultation réussie (fictif) : communauté favorable et pas de violence/expulsion
-        const consultingSuccess = document.getElementById('filter-consulting-success')?.value;
-        if (consultingSuccess === 'true') {
-            filters.push("community_reaction='Consent'");
-            filters.push('impact_violence=false');
-            filters.push('impact_eviction=false');
         }
 
         // Combine tous les filtres avec AND (tous les critères doivent être satisfaits)
@@ -176,7 +167,6 @@ class DealsFilter {
         document.getElementById('filter-displacement').value = '';
         document.getElementById('filter-benefits').value = '';
         document.getElementById('filter-region').value = '';
-        document.getElementById('filter-consulting-success').value = '';
         
         // Applique les changements (tous les filtres vides)
         this.applyFilters();
