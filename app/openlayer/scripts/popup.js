@@ -3,15 +3,6 @@ import Overlay from 'ol/Overlay';
 // Cache pour le modèle HTML du popup
 let popupTemplate = null;
 
-// Étiquettes pour l'affichage de la précision
-const ACCURACY_LABELS = {
-  'APPROXIMATE_LOCATION': 'Localisation approximative',
-  'EXACT_LOCATION': 'Localisation exacte',
-  'COORDINATES': 'Coordonnées',
-  'COUNTRY': 'Pays',
-  'ADMINISTRATIVE_REGION': 'Région administrative'
-};
-
 /**
  * Formate les données d'intention (tableau ou chaîne)
  * @param {*} intention - Donnée à formater
