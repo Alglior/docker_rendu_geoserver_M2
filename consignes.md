@@ -9,15 +9,14 @@ On doit vous noter sur la publication de couches et la création de cartes : du 
 
 # Ce sur quoi vous êtes notés :
 
-GeoServer (publication de couches)
+### Ce sur quoi vous êtes notés :
 
-OpenLayers
+- GeoServer (publication de couches)
+- OpenLayers
+- Leaflet
+- HTML et CSS basiques (styliser un minimum le contenu)
 
-Leaflet
-
-HTML et CSS basiques (styliser un minimum le contenu)
-
-Ce sur quoi vous n’êtes PAS notés :
+### Ce sur quoi vous n’êtes PAS notés :
 
 Docker
 
