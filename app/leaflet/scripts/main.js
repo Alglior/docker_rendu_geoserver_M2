@@ -6,10 +6,20 @@ import { initializeLegend } from './legend.js';
 const baseUrl = 'http://localhost:8083/';
 
 // ===== INITIALISATION DE LA CARTE =====
+// Définition des limites maximales de déplacement (limite nord/sud)
+const maxBounds = L.latLngBounds(
+    L.latLng(-75, -180),  // Coin sud-ouest (limite sud)
+    L.latLng(75, 180)     // Coin nord-est (limite nord)
+);
+
 const map = L.map('map', {
     center: [0, 0],
     zoom: 2,
-    zoomControl: true
+    zoomControl: true,
+    maxBounds: maxBounds,
+    maxBoundsViscosity: 0.8,  // Résistance lors du déplacement hors limites (0-1)
+    minZoom: 2,  // Limite de dézoom (empêche de trop dézoomer)
+    maxZoom: 10  // Limite de zoom maximum
 });
 
 // Ajout du contrôle d'échelle

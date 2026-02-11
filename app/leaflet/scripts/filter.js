@@ -84,10 +84,16 @@ class DealsFilter {
         }
 
         // Filtre région : permet de filtrer par zone géographique
-        const region = document.getElementById('filter-region')?.value;
-        if (region) {
-            filters.push(`region='${region}'`);
-        }
+    const region = document.getElementById('Zfilter-region')?.value;
+    if (region) {
+      const regionCqlMap = {
+        'Latin America': "region ILIKE '%Latin America%'",
+        'Europe': "region ILIKE '%Europe%'",
+        'Oceania': "region ILIKE '%Oceania%'"
+      };
+      filters.push(regionCqlMap[region] || `region='${region}'`);
+    }
+
 
         // Combine tous les filtres avec AND (tous les critères doivent être satisfaits)
         return filters.length > 0 ? filters.join(' AND ') : '';
@@ -149,7 +155,8 @@ class DealsFilter {
                                 className: 'custom-popup'
                             });
                         }
-                    }
+                    },
+                    pane: 'dealsPane'
                 }).addTo(this.map);
                 
                 console.log('Filtres appliqués:', cqlFilter || 'Aucun filtre');
