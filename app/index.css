@@ -100,7 +100,7 @@ body {
 
 
 
-/* Hero Section */
+/* Section héro */
 .hero-section {
     position: relative;
     min-height: 100vh;
@@ -250,7 +250,7 @@ hr {
     opacity: 0.5;
 }
 
-/* Stats Section */
+/* Section statistiques */
 .stats-section {
     background: linear-gradient(135deg, #2f7c25 0%, #1e4918 100%);
     padding: 60px 20px;
@@ -290,7 +290,7 @@ hr {
     opacity: 0.9;
 }
 
-/* About Section */
+/* Section à propos */
 .about-section {
     padding: 80px 20px;
     background-color: #ffffff;
@@ -314,7 +314,7 @@ hr {
     color: #555;
 }
 
-/* Expertise Section */
+/* Section expertise */
 .expertise-section {
     padding: 80px 20px;
     background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
@@ -336,7 +336,7 @@ hr {
     text-align: center;
 }
 
-/* Method Section */
+/* Section méthode */
 .method-section {
     padding: 80px 20px;
     background-color: #ffffff;
@@ -388,7 +388,7 @@ hr {
     color: #555;
 }
 
-/* Results Section */
+/* Section résultats */
 .results-section {
     padding: 80px 20px;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -460,7 +460,7 @@ hr {
     margin: 0;
 }
 
-/* Testimonial Section */
+/* Section témoignage */
 .testimonial-section {
     padding: 80px 20px;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -508,7 +508,7 @@ hr {
     margin: 0;
 }
 
-/* Disclaimer Section */
+/* Section avertissement */
 .disclaimer-section {
     padding: 40px 20px;
     background-color: #f8f9fa;
@@ -524,7 +524,7 @@ hr {
     text-align: center;
 }
 
-/* Responsive Design */
+/* Design réactif */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 2.5rem;

@@ -18,7 +18,7 @@ html, body {
     overflow: hidden;
 }
 
-/* ===== TOP BAR ===== */
+/* ===== BARRE SUPÉRIEURE ===== */
 .top-bar {
     position: fixed;
     top: 0;
@@ -86,7 +86,7 @@ html, body {
     height: 50px;
 }
 
-/* ===== APP CONTAINER ===== */
+/* ===== CONTENEUR DE L'APPLICATION ===== */
 .app-container {
     display: flex;
     height: 100vh;
@@ -98,7 +98,7 @@ html, body {
     position: relative;
 }
 
-/* ===== MAP ===== */
+/* ===== CARTE ===== */
 #map {
     position: absolute;
     top: 70px;

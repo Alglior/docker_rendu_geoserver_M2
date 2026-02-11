@@ -5,7 +5,7 @@
     --text-color: #333333;
 }
 
-/* Legend container */
+/* Conteneur de la légende */
 .map-legend {
   position: fixed;
   bottom: 20px;
@@ -95,7 +95,7 @@
   line-height: 1.4;
 }
 
-/* Legend symbols */
+/* Symboles de la légende */
 .legend-symbol {
   width: 24px;
   height: 24px;
@@ -139,7 +139,7 @@
   }
 }
 
-/* Legend button */
+/* Bouton de la légende */
 .legend-btn {
   position: fixed;
   bottom: 20px;
@@ -177,7 +177,7 @@
   stroke: white;
 }
 
-/* When legend is visible, hide the button */
+/* Quand la légende est visible, masquer le bouton */
 .map-legend[style*="display: block"] ~ .legend-btn {
   display: none;
 }

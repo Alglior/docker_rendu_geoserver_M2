@@ -12,7 +12,7 @@ class LayerSwitcherModal {
         this.modalId = modalId;
         this.buttonId = buttonId;
         
-        // Passing a layer configuration or the default which is the used based maps
+        // Transmission de la configuration des couches ou des fonds de carte par défaut utilisés
         this.layers = layersConfig || this.getDefaultLayers();
         
 
@@ -41,7 +41,7 @@ class LayerSwitcherModal {
     }
     
     /**
-     * Initialise DOM elements
+     * Initialise les éléments DOM
      */
     initializeElements() {
         this.layerSwitcherBtn = document.getElementById(this.buttonId);
@@ -61,7 +61,7 @@ class LayerSwitcherModal {
 
         this.closeModalSpan?.addEventListener('click', () => this.closeModal());
         
-        // Closing modal by clicking outside of it
+        // Fermer la modal en cliquant à l'extérieur
         window.addEventListener('click', (event) => {
             if (event.target === this.layerModal) {
                 this.closeModal();

@@ -298,7 +298,7 @@ html, body {
     filter: brightness(0) invert(1);
 }
 
-/* ===== FILTER PANEL STYLES ===== */
+/* ===== STYLES DU PANNEAU DE FILTRES ===== */
 .filter-panel {
     position: fixed;
     right: 0;
@@ -338,7 +338,7 @@ html, body {
     gap: 15px;
 }
 
-/* ===== FILTER STYLES ===== */
+/* ===== STYLES DES FILTRES ===== */
 .filter-options {
     display: flex;
     flex-direction: column;

@@ -5,7 +5,7 @@
     --text-color: #333333;
 }
 
-/* ===== LAYER SWITCHER BUTTON ===== */
+/* ===== BOUTON DE SÉLECTION DES COUCHES ===== */
 .layer-switcher-btn {
     position: fixed;
     bottom: 20px;
@@ -34,7 +34,7 @@
     height: 30px;
 }
 
-/* ===== LAYER MODAL ===== */
+/* ===== FENÊTRE MODALE DES COUCHES ===== */
 .layer-modal {
     display: none;
     position: fixed;

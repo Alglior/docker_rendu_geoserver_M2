@@ -1,4 +1,5 @@
 import Overlay from 'ol/Overlay';
+import popupContentTemplate from '../templates/popup-content.html?raw';
 
 // Cache pour le modèle HTML du popup
 let popupTemplate = null;
@@ -11,7 +12,7 @@ let popupTemplate = null;
 function formatIntention(intention) {
   if (!intention) return 'N/A';
   
-  // Parse si c'est un tableau stringifié
+  // Analyse si c'est un tableau sous forme de chaîne
   let data = intention;
   if (typeof intention === 'string' && intention.startsWith('[')) {
     try {
@@ -52,8 +53,7 @@ function formatDealSize(dealSize) {
 async function loadPopupTemplate() {
   if (!popupTemplate) {
     try {
-      const response = await fetch('/openlayer/templates/popup-content.html');
-      popupTemplate = await response.text();
+      popupTemplate = popupContentTemplate;
     } catch (error) {
       console.error('Erreur lors du chargement du modèle:', error);
       popupTemplate = '<div class="popup-deal-title">Transaction #{{dealId}}</div><p>Erreur lors du chargement</p>';
@@ -68,7 +68,7 @@ async function loadPopupTemplate() {
  * @returns {Overlay} L'instance d'overlay configurée
  */
 export function initializePopup(map) {
-  // Configuration de l'overlay popup
+  // Configuration de la fenêtre contextuelle overlay
   const container = document.getElementById('popup');
   const content = document.getElementById('popup-content');
 
@@ -83,7 +83,7 @@ export function initializePopup(map) {
 
   map.addOverlay(overlay);
 
-  // Ferme le popup en cliquant en dehors ou sur la map
+  // Ferme la fenêtre contextuelle en cliquant en dehors ou sur la carte
   map.on('click', async function (evt) {
     const feature = map.forEachFeatureAtPixel(evt.pixel, f => f);
     
@@ -95,16 +95,16 @@ export function initializePopup(map) {
     const properties = feature.getProperties();
     const dealId = properties.id;
     
-    // Affiche le popup seulement pour les deals (avec propriété id)
+    // Affiche la fenêtre contextuelle seulement pour les transactions (avec propriété id)
     if (!dealId && !properties.country) {
       overlay.setPosition(undefined);
       return;
     }
 
-    // Construit le HTML du popup avec les infos du deal
+    // Construit le HTML de la fenêtre contextuelle avec les infos de la transaction
     let popupHtml = '';
     
-    // Titre avec ID et Pays
+    // Titre avec ID et pays
     if (properties.country) {
       popupHtml += `<div class="popup-deal-title">Transaction #${properties.id} - ${properties.country}</div>`;
     }

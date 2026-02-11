@@ -1,39 +1,35 @@
+import legendContent from '../templates/legend-content.html?raw';
+import legendIconUrl from '../../images/legend_icone.png';
+
 /**
- * Initialize and configure the map legend
- * @param {L.Map} map - The Leaflet map instance
+ * Initialise et configure la légende de la carte
+ * @param {L.Map} map - Instance de la carte Leaflet
  */
 export async function initializeLegend(map) {
-  // Create legend container
+  // Créer le conteneur de la légende
   const legend = document.createElement('div');
   legend.id = 'map-legend';
   legend.className = 'map-legend';
   
-  // Show the legend by default
+  // Afficher la légende par défaut
   legend.style.display = 'block';
   
-  // Load legend content from HTML file
-  try {
-    const response = await fetch('/leaflet/templates/legend-content.html');
-    const html = await response.text();
-    legend.innerHTML = html;
-  } catch (error) {
-    console.error('Error loading legend content:', error);
-    legend.innerHTML = '<div class="legend-header"><h4>Legende</h4></div><div class="legend-content">Erreur de chargement</div>';
-  }
+  // Charger le contenu de la légende depuis le template importé
+  legend.innerHTML = legendContent;
   
-  // Add legend to map container
+  // Ajouter la légende au conteneur de la carte
   document.getElementById('map').appendChild(legend);
   
-  // Create legend button to show/hide
+  // Créer le bouton pour afficher/masquer la légende
   const legendButton = document.createElement('button');
   legendButton.id = 'legend-btn';
   legendButton.className = 'legend-btn';
-  legendButton.innerHTML = '<img src="/images/legend_icone.png" alt="Légende" />';
+  legendButton.innerHTML = `<img src="${legendIconUrl}" alt="Légende" />`;
   legendButton.title = 'Afficher la legende';
 
   document.getElementById('map').appendChild(legendButton);
 
-  // Toggle legend visibility
+  // Basculer la visibilité de la légende
   const toggleLegendVisibility = (show) => {
     legend.style.display = show ? 'block' : 'none';
     legendButton.classList.toggle('active', show);
@@ -43,7 +39,7 @@ export async function initializeLegend(map) {
     toggleLegendVisibility(legend.style.display === 'none');
   });
   
-  // Close button inside legend
+  // Bouton de fermeture dans la légende
   const legendToggle = legend.querySelector('.legend-toggle');
   if (legendToggle) {
     legendToggle.addEventListener('click', () => {
@@ -53,8 +49,8 @@ export async function initializeLegend(map) {
 }
 
 /**
- * Show or hide the legend programmatically
- * @param {boolean} show - True to show, false to hide
+ * Affiche ou masque la légende de manière programmatique
+ * @param {boolean} show - True pour afficher, false pour masquer
  */
 function setLegendVisibility(show) {
   const legend = document.getElementById('map-legend');
@@ -67,14 +63,14 @@ function setLegendVisibility(show) {
 }
 
 /**
- * Show the legend programmatically
+ * Affiche la légende de manière programmatique
  */
 export function showLegend() {
   setLegendVisibility(true);
 }
 
 /**
- * Hide the legend programmatically
+ * Masque la légende de manière programmatique
  */
 export function hideLegend() {
   setLegendVisibility(false);

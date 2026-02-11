@@ -1,7 +1,6 @@
 import Map from 'ol/Map';
 import View from 'ol/View.js';
 import { Style, Fill, Stroke, Circle as CircleStyle } from 'ol/style';
-import Draw from 'ol/interaction/Draw.js';
 import { fromLonLat } from 'ol/proj';
 import OSM from 'ol/source/OSM.js';
 import TileWMS from 'ol/source/TileWMS.js';
@@ -30,7 +29,6 @@ const createStyle = (fillColor, strokeColor, radius = 6) => new Style({
 });
 
 // ===== SOURCES =====
-const drawSource = new VectorSource();
 const dealsSource = new VectorSource({
   url: baseUrl + 'geoserver/landmatrix_agri/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=landmatrix_agri:deals_agri_wfs&maxFeatures=500&outputFormat=application/json',
   format: new GeoJSON(),
@@ -62,7 +60,6 @@ const layers = {
   }),
   deals: new VectorLayer({ source: dealsSource, style: createStyle('#2e7d32', '#ffffff', 6) }),
   consultingSuccess: createWFSLayer('consulting-success', consultingSuccessUrl, '#1565c0', true),
-  draw: new VectorLayer({ source: drawSource, style: createStyle('#fc941d', '#fc941d', 7) }),
 };
 
 
@@ -73,20 +70,9 @@ layers.deals.set('id', 'deals');
 const map = new Map({
   controls: defaultControls().extend([new ScaleLine({ className: 'ol-scale-line', target: document.getElementById('scale-line-container') })]),
   target: 'map',
-  layers: [layers.base, layers.pays, layers.deals, layers.consultingSuccess, layers.draw],
+  layers: [layers.base, layers.pays, layers.deals, layers.consultingSuccess],
   view: new View({ center: fromLonLat([0, 0]), zoom: 2 }),
 });
-
-// ===== INTERACTIONS =====
-let draw;
-
-function addInteraction(type) {
-  if (draw) map.removeInteraction(draw);
-  if (type && type !== 'None') {
-    draw = new Draw({ source: drawSource, type });
-    map.addInteraction(draw);
-  }
-}
 
 // ===== INITIALISATION =====
 new LayerSwitcherModal(map);
@@ -95,4 +81,4 @@ initializePopup(map);
 new DealsFilter(layers.deals, baseUrl);
 initializeLegend(map);
 
-export { map, addInteraction, drawSource };
+export { map };
