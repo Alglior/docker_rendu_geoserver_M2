@@ -155,8 +155,14 @@ class DealsFilter {
                                 className: 'custom-popup'
                             });
                         }
-                    }
+                    },
+                    pane: 'dealsPane'
                 }).addTo(this.map);
+                
+                // Ramener la couche consulting au premier plan si elle existe
+                if (typeof window.bringConsultingToFront === 'function') {
+                    window.bringConsultingToFront();
+                }
                 
                 console.log('Filtres appliqués:', cqlFilter || 'Aucun filtre');
             })

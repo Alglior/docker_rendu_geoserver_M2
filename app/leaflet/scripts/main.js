@@ -2,6 +2,7 @@ import LayerSwitcherModal from './modal.js';
 import DealsFilter from './filter.js';
 import FilterPanel from './filterPanel.js';
 import { initializeLegend } from './legend.js';
+import { createPopupContent } from './popup.js';
 
 const baseUrl = 'http://localhost:8083/';
 
@@ -47,6 +48,15 @@ const baseLayers = {
 // Ajouter OSM par défaut
 baseLayers.osm.addTo(map);
 
+// ===== CRÉATION DES PANES POUR HIÉRARCHIE DES COUCHES =====
+// Pane pour les transactions agricoles (points verts)
+map.createPane('dealsPane');
+map.getPane('dealsPane').style.zIndex = 610;
+
+// Pane pour les consultations réussies (points bleus) - au-dessus des deals
+map.createPane('consultingPane');
+map.getPane('consultingPane').style.zIndex = 620;
+
 // ===== COUCHES DE CONTEXTE =====
 // Couche WMS des pays
 const paysLayer = L.tileLayer.wms(baseUrl + 'geoserver/landmatrix_agri/wms', {
@@ -71,7 +81,17 @@ const consultingSuccessLayer = L.geoJSON(null, {
             opacity: 1,
             fillOpacity: 1
         });
-    }
+    },
+    onEachFeature: function (feature, layer) {
+        if (feature.properties) {
+            const popupContent = createPopupContent(feature.properties);
+            layer.bindPopup(popupContent, {
+                maxWidth: 550,
+                className: 'custom-popup'
+            });
+        }
+    },
+    pane: 'consultingPane'
 }).addTo(map);
 
 // Charger les données de consultation réussie
@@ -79,6 +99,8 @@ fetch(consultingSuccessUrl)
     .then(response => response.json())
     .then(data => {
         consultingSuccessLayer.addData(data);
+        // Forcer la couche à être au premier plan
+        consultingSuccessLayer.bringToFront();
     })
     .catch(error => console.error('Erreur de chargement de la couche consultation réussie:', error));
 
@@ -107,6 +129,13 @@ const layerSwitcher = new LayerSwitcherModal(map, baseLayers, overlayLayers);
 // ===== CHARGEMENT INITIAL DES DEALS =====
 dealsFilter.loadDeals();
 
+// Exporter la fonction pour ramener la couche consulting au premier plan
+window.bringConsultingToFront = function() {
+    if (consultingSuccessLayer && map.hasLayer(consultingSuccessLayer)) {
+        consultingSuccessLayer.bringToFront();
+    }
+};
+
 console.log('Carte Leaflet initialisée');
 
-export { map };
+export { map, consultingSuccessLayer };
