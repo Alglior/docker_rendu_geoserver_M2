@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 
 export default {
+  base: './',
   server: {
     port: 3000,
   },
