@@ -1,18 +1,13 @@
 # OpenLayers + Vite
 
-This example demonstrates how the `ol` package can be used with [Vite](https://vitejs.dev/).
+Déplacez-vous ensuite dans votre nouveau répertoire `app` et démarrez un serveur de développement (accessible à l'adresse http://localhost:5173) :
 
-To get started, run the following (requires Node 14+):
+cd app
 
-    npx create-ol-app my-app --template vite
+npm start
 
-Then change into your new `my-app` directory and start a development server (available at http://localhost:5173):
+Production :
 
-    cd my-app
-    npm start
+npm run build
 
-To generate a build ready for production:
-
-    npm run build
-
-Then deploy the contents of the `dist` directory to your server.  You can also run `npm run serve` to serve the results of the `dist` directory for preview.
+Déployez ensuite le contenu du répertoire `dist` sur votre serveur. Vous pouvez également exécuter `npm run serve` pour prévisualiser le résultat du répertoire `dist`.
